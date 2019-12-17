@@ -11,7 +11,7 @@ class ActorTest extends FlatSpec with Matchers {
     val sc = new SparkContext(conf)
 
     val sqlContext = new HiveContext(sc)
-    val jsonDF = sqlContext.read.json("C:\\Users\\Musta\\Desktop\\jsonDF\\actorTest.json")
+    val jsonDF = sqlContext.read.json("actorTest.json")
 
     import sqlContext.implicits._
     val rdd = jsonDF.as[Actor].rdd
