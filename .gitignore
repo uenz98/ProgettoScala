@@ -1,3 +1,5 @@
 /.idea/
 /ProgettoScala.iml
+derby.log
+/metastore_db/
 /target/
