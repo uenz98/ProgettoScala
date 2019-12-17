@@ -1,3 +1,5 @@
+package entities
+
 case class Repo(
                id: Long,
                name: String,

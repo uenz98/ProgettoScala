@@ -1,3 +1,5 @@
+package entities
+
 case class Org(
                 avatar_url: String,
                 gravatar_id: String,
