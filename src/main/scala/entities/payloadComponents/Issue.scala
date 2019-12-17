@@ -1,0 +1,26 @@
+package entities.payloadComponents
+
+case class Issue(assignee:User,
+                 assignees:Array[User],
+                 author_association:String,
+                 body:String,
+                 closed_at:String,
+                 comments:Long,
+                 comments_url:String,
+                 created_at:String,
+                 events_url:String,
+                 html_url:String,
+                 id:Long,
+                 labels:LabelsWrapper,
+                 labels_url:String,
+                 locked:Boolean,
+                 milestone: Milestone,
+                 number:Long,
+                 pull_request:PullRequestWrapper,
+                 repository_url:String,
+                 state:String,
+                 title:String,
+                 updated_at:String,
+                 url:String,
+                 user: User
+                )
