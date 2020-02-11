@@ -1,53 +1,55 @@
 package entities.payloadComponents
 
-class PullRequest(_links:LinksWrapper2,
-                       additions:Long,
-                       assignee:User,
-                       assignees:Array[User],
-                       author_association:String,
-                       base:Base,
-                       body:String,
-                       changed_files:Long,
-                       closed_at:String,
-                       comments:Long,
-                       comments_url:String,
-                       commits:Long,
-                       commits_url:String,
-                       created_at:String,
-                       deletions:Long,
-                       diff_url:String,
-                       head:Base,
-                       html_url:String,
-                       id:Long,
-                       issue_url:String,
-                       labels:LabelsWrapper,
-                       locked:Boolean,
-                       maintainer_can_modify:Boolean,
-                       merge_commit_sha:String,
-                       mergeable:Boolean,
-                       mergeable_state:String,
-                       merged:Boolean,
-                       merged_at:String,
-                       merged_by:User,
-                       milestone: Milestone,
-                       number:Long,
-                       patch_url:String,
-                       rebaseable:Boolean,
-                       requested_reviewers:Array[User],
-                       requested_teams:Array[Team],
-                       review_comment_url:String,
-                       review_comments:Long,
-                       review_comments_url:String,
-                       state:String,
-                       statuses_url:String,
-                       title:String,
-                       updated_at:String,
-                       url:String,
-                       user: User
+import scala.beans.BeanProperty
+
+class PullRequest(@BeanProperty _links:LinksWrapper2 = LinksWrapper2(),
+                  @BeanProperty additions:BigInt = 0,
+                  @BeanProperty assignee:User = User(),
+                  @BeanProperty assignees:Array[User] = new Array[User](0),
+                  @BeanProperty author_association:String = null,
+                  @BeanProperty base:Base = null,
+                  @BeanProperty body:String = null,
+                  @BeanProperty changed_files:BigInt = 0,
+                  @BeanProperty closed_at:String = null,
+                  @BeanProperty comments:BigInt = 0,
+                  @BeanProperty comments_url:String = null,
+                  @BeanProperty commits:BigInt = 0,
+                  @BeanProperty commits_url:String = null,
+                  @BeanProperty created_at:String = null,
+                  @BeanProperty deletions:BigInt = 0,
+                  @BeanProperty diff_url:String = null,
+                  @BeanProperty head:Base = null,
+                  @BeanProperty html_url:String = null,
+                  @BeanProperty id:BigInt = 0,
+                  @BeanProperty issue_url:String = null,
+                  @BeanProperty labels:Array[LabelsWrapper] = new Array[LabelsWrapper](0),
+                  @BeanProperty locked:java.lang.Boolean = false,
+                  @BeanProperty maintainer_can_modify:java.lang.Boolean = false,
+                  @BeanProperty merge_commit_sha:String = null,
+                  @BeanProperty mergeable:java.lang.Boolean = false,
+                  @BeanProperty mergeable_state:String = null,
+                  @BeanProperty merged:java.lang.Boolean = false,
+                  @BeanProperty merged_at:String = null,
+                  @BeanProperty merged_by:User = null,
+                  @BeanProperty milestone: Milestone = Milestone(),
+                  @BeanProperty number:BigInt = 0,
+                  @BeanProperty patch_url:String = null,
+                  @BeanProperty rebaseable:java.lang.Boolean = false,
+                  @BeanProperty requested_reviewers:Array[User] = new Array[User](0),
+                  @BeanProperty requested_teams:Array[Team] = new Array[Team](0),
+                  @BeanProperty review_comment_url:String = null,
+                  @BeanProperty review_comments:BigInt = 0,
+                  @BeanProperty review_comments_url:String = null,
+                  @BeanProperty state:String = null,
+                  @BeanProperty statuses_url:String = null,
+                  @BeanProperty title:String = null,
+                  @BeanProperty updated_at:String = null,
+                  @BeanProperty url:String = null,
+                  @BeanProperty user: User = null
                       )
-extends Product
-with Serializable{
-  override def canEqual(that: Any): Boolean = that.isInstanceOf[PullRequest]
+extends Serializable
+with Product {
+  override def canEqual(that: Any):Boolean = that.isInstanceOf[PullRequest]
 
   override def productElement(n: Int): Any = n match{
     case 0 => _links
@@ -93,6 +95,7 @@ with Serializable{
     case 40 => title
     case 41 => updated_at
     case 42 => url
+    case _ => throw new IndexOutOfBoundsException(n.toString)
   }
 
   override def productArity: Int = 43

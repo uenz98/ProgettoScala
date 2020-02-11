@@ -1,17 +1,18 @@
 package entities.payloadComponents
 
-case class Milestone(closed_at:String,
-                     closed_issues:Long,
-                     created_at:String,
-                     creator:User,
-                     description:String,
-                     due_on:String,
-                     html_url:String,
-                     id:Long,
-                     labels_url:String,
-                     number:Long,
-                     open_issues:Long,
-                     state:String,
-                     title:String,
-                     updated_at:String,
-                     url:String)
+case class Milestone(closed_at:String=null,
+                     closed_issues:BigInt=0,
+                     created_at:String=null,
+                     creator:User=null,
+                     description:String=null,
+                     due_on:String=null,
+                     html_url:String=null,
+                     id:BigInt=0,
+                     labels_url:String=null,
+                     number:BigInt=0,
+                     open_issues:BigInt=0,
+                     state:String=null,
+                     title:String=null,
+                     updated_at:String=null,
+                     url:String=null
+                    ) extends Serializable

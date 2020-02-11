@@ -1,6 +1,9 @@
 
 import entities.Payload
+import entities.schemas.PayloadForSchema
+import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.sql.types.StructType
 import org.apache.spark.{SparkConf, SparkContext}
 import org.scalatest.{FlatSpec, Matchers}
 
@@ -11,10 +14,22 @@ class PayloadTest extends FlatSpec with Matchers {
     val sc = new SparkContext(conf)
 
     val sqlContext = new HiveContext(sc)
-    val jsonDF = sqlContext.read.json("payloadTest.json")
 
+    val schema = ScalaReflection.schemaFor[PayloadForSchema].dataType.asInstanceOf[StructType]
+
+    schema.foreach(println)
+
+    val jsonDF = sqlContext.read
+      .schema(schema)
+      .json("payloadTest1.json")
+
+    jsonDF.show
+    val jsonRenamed =
+    jsonDF.withColumnRenamed("private", "privateField")
+    .withColumnRenamed("public", "publicField")
+    .withColumnRenamed("default", "defaultField")
     import sqlContext.implicits._
-    val rdd = jsonDF.as[Payload].rdd
+    val rdd = jsonRenamed.as[Payload].rdd
 
     rdd.foreach(println)
 

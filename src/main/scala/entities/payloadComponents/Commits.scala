@@ -1,7 +1,8 @@
 package entities.payloadComponents
 
-case class Commits(author:UserInfo,
-                   distinct:Boolean,
-                   message:String,
-                   sha:String,
-                   url:String)
+case class Commits(author:UserInfo = null,
+                   distinct:java.lang.Boolean = false,
+                   message:String = null,
+                   sha:String = null,
+                   url:String = null
+                  ) extends Serializable

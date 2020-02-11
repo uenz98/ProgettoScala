@@ -1,9 +1,9 @@
 package entities.payloadComponents
 
-case class Pages(action:String,
-                 html_url:String,
-                 page_name:String,
-                 sha:String,
-                 summary:String,
-                 title:String
-                )
+case class Pages(action:String = null,
+                 html_url:String = null,
+                 page_name:String = null,
+                 sha:String = null,
+                 summary:String = null,
+                 title:String = null
+                ) extends Serializable

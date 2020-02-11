@@ -4,4 +4,4 @@ derby.log
 /metastore_db/
 /target/
 /src/main/scala/MainMusta.scala
-/src/main/scala/FirstClass1.scala
+/src/main/scala/Main.scala

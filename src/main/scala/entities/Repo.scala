@@ -1,7 +1,7 @@
 package entities
 
 case class Repo(
-               id: Long,
-               name: String,
-               url: String
+               id: BigInt = 0,
+               name: String = null,
+               url: String = null
                )
