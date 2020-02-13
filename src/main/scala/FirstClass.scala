@@ -1,21 +1,36 @@
-import org.apache.spark.{SparkConf, SparkContext}
+import entities.JsonToParse
+import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.hive.HiveContext
+import org.apache.spark.{SparkConf, SparkContext}
+import util.Utility
 
-object FirstClass{
-  def main(args: Array[String]) {
+import scala.io.Source
 
-    val conf = new SparkConf().setMaster("local[2]")
-      .setAppName("CountingSheep")
+object Main{
+
+  def main(args: Array[String]): Unit = {
+    val conf = new SparkConf().setMaster("local[2]").setAppName("CountingSheep")
 
     val sc = new SparkContext(conf)
 
     //parsing JSON
     val sqlContext = new HiveContext(sc)
 
-    val jsonDF = sqlContext.read.json("C:\\Users\\Studente\\Desktop\\gesudinazaret\\2018-03-01-0.json.gz")
-    //println(jsonDF.toString)
+    Utility.decompressGzipFile("file.json", Utility.fileDownloader("http://data.githubarchive.org/2018-03-01-0.json.gz"))
 
-    jsonDF.show
+    val file = Source.fromFile("file.json")
 
+    for(line <- file.getLines()) {
+
+      import java.io.PrintWriter
+      new PrintWriter("tmp.json") { write(line); close() }
+
+      val rdd:RDD[JsonToParse] = Utility.fromFilePathJSONToRDD("tmp.json", sqlContext)
+
+      println(rdd)
+
+    }
+
+    file.close()
   }
 }
