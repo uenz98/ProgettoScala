@@ -28,6 +28,9 @@ class PayloadTest extends FlatSpec with Matchers {
     jsonDF.withColumnRenamed("private", "privateField")
     .withColumnRenamed("public", "publicField")
     .withColumnRenamed("default", "defaultField")
+
+    jsonRenamed.show
+
     import sqlContext.implicits._
     val rdd = jsonRenamed.as[Payload].rdd
 

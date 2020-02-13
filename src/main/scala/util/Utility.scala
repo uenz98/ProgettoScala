@@ -13,6 +13,7 @@ import org.apache.spark.sql.types.StructType
 
 object Utility {
 
+
   def fromFilePathJSONToRDD(filePath:String, sqlContext: SQLContext):RDD[JsonToParse] = {
 
     val schema = ScalaReflection.schemaFor[JsonToParseForSchema].dataType.asInstanceOf[StructType]

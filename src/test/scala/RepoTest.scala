@@ -1,5 +1,6 @@
 
 import entities.Repo
+import entities.schemas.RepoForSchema
 import org.apache.spark.sql.catalyst.ScalaReflection
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.sql.types.StructType
@@ -13,13 +14,16 @@ class RepoTest extends FlatSpec with Matchers {
     val sc = new SparkContext(conf)
 
     val sqlContext = new HiveContext(sc)
-    val schema = ScalaReflection.schemaFor[Repo].dataType.asInstanceOf[StructType]
+    val schema = ScalaReflection.schemaFor[RepoForSchema].dataType.asInstanceOf[StructType]
     val jsonDF = sqlContext.read.schema(schema).json("repoTest.json")
 
     jsonDF.show
-    
+    val jsonRenamed =
+      jsonDF.withColumnRenamed("private", "privateField")
+        .withColumnRenamed("public", "publicField")
+        .withColumnRenamed("default", "defaultField")
     import sqlContext.implicits._
-    val rdd = jsonDF.as[Repo].rdd
+    val rdd = jsonRenamed.as[Repo].rdd
 
     rdd.foreach(println)
 
