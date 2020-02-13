@@ -5,7 +5,7 @@ case class JsonToParse(
                       created_at: String,
                       id: String,
                       org: Org,
-                      payload: Payload,
+                      payloadField: Payload,
                       public: java.lang.Boolean,
                       repo: Repo,
                       `type`:String
