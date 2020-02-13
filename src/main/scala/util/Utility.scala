@@ -7,14 +7,14 @@ import java.util.zip.GZIPInputStream
 import entities.JsonToParse
 import entities.schemas.JsonToParseForSchema
 import org.apache.spark.rdd.RDD
-import org.apache.spark.sql.SQLContext
+import org.apache.spark.sql.{Dataset, SQLContext}
 import org.apache.spark.sql.catalyst.ScalaReflection
-import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.types.{ArrayType, StructType}
 
 object Utility {
 
 
-  def fromFilePathJSONToRDD(filePath:String, sqlContext: SQLContext):RDD[JsonToParse] = {
+  def fromFilePathJSONToRDD(filePath:String, sqlContext: SQLContext):Dataset[JsonToParse] = {
 
     val schema = ScalaReflection.schemaFor[JsonToParseForSchema].dataType.asInstanceOf[StructType]
 
@@ -24,7 +24,7 @@ object Utility {
     val jsonRenamed = jsonDF.withColumnRenamed("private", "privateField")
       .withColumnRenamed("public", "publicField")
       .withColumnRenamed("default", "defaultField")
-    jsonRenamed.as[JsonToParse].rdd
+    jsonRenamed.as[JsonToParse]
   }
 
   def fileDownloader(fileURL: String): String = {
