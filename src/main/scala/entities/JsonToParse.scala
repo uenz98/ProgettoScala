@@ -6,6 +6,5 @@ case class JsonToParse(
                       id: String,
                       org: Org,
                       payload: Payload,
-                      repo: Repo,
-                      `type`:String
+                      repo: Repo
                       )
