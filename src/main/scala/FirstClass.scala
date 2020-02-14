@@ -7,7 +7,7 @@ import org.apache.hadoop.hive.ql.exec.spark.session
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.hive.HiveContext
 import org.apache.spark.{SparkConf, SparkContext}
-import util.Utility
+import util.{QueryUtility, Utility}
 
 import scala.io.Source
 
@@ -36,13 +36,19 @@ object Main{
 
       /* QUERIES */
       //1
-      val query = jsonDF.groupBy("actor").count().collectAsList()
+    QueryUtility.createFile("output\\actorCount.csv",jsonDF.groupBy("actor").count().collectAsList().toString)
+
+
+
       //crea csv e ci stampa risultato query
-      val fileActor = new File("C:\\Users\\Musta\\Desktop\\actors.csv")
-      val printActor = new FileWriter(fileActor)
-      printActor.write(query.toString)
+
+
+
+
+
 
 //    }
+
 
     file.close()
 
