@@ -2,6 +2,7 @@ import java.io.{File, FileWriter}
 
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.apache.spark.sql.types.{DoubleType, StringType, StructField, StructType}
+import org.apache.spark.sql.functions._
 import entities.JsonToParse
 import org.apache.hadoop.hive.ql.exec.spark.session
 import org.apache.spark.rdd.RDD
@@ -30,17 +31,18 @@ object Main{
 //      new PrintWriter("tmp.json") { write(line); close() }
 
       val jsonDF:Dataset[JsonToParse] = Utility.fromFilePathJSONToRDD("file.json", sqlContext)
-      val rdd:RDD[JsonToParse] = jsonDF.rdd
 
-      println(rdd)
-
+    import sqlContext.implicits._
       /* QUERIES */
-      //1
+    //1
     QueryUtility.createFile("output\\actorCount.csv",jsonDF.groupBy("actor").count().collectAsList().toString)
+    //2
+    QueryUtility.createFile("output\\authorCount.csv", jsonDF.withColumn("author", explode($"payload.commits.author")).groupBy("payload.commits.author").count().collectAsList().toString)
+    //3
+    QueryUtility.createFile("output\\repoCount.csv",jsonDF.groupBy("repo").count().collectAsList().toString)
+    //4
 
-
-
-      //crea csv e ci stampa risultato query
+    //crea csv e ci stampa risultato query
 
 
 
