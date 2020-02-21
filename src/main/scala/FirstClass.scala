@@ -1,9 +1,11 @@
-import java.io.{File, FileWriter}
+import java.io.{File, FileNotFoundException, FileWriter}
+import java.util.Properties
 
 import org.apache.spark.sql.{Dataset, Row, SparkSession}
 import org.apache.spark.sql.types.{DoubleType, StringType, StructField, StructType}
 import org.apache.spark.sql.functions._
 import entities.JsonToParse
+import org.apache.commons.configuration.ConfigurationFactory
 import org.apache.hadoop.hive.ql.exec.spark.session
 import org.apache.spark.rdd.RDD
 import org.apache.spark.sql.hive.HiveContext
@@ -15,9 +17,15 @@ import scala.io.Source
 object Main {
 
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf().setMaster("local[2]").setAppName("CountingSheep")
-    val sc = new SparkContext(conf)
 
+    val properties: Properties = new Properties()
+
+    val source = Source.fromFile("sparkConf.properties")
+    properties.load(source.bufferedReader())
+
+    val conf = new SparkConf()
+      .setMaster(properties.getProperty("spark.master")).setAppName(properties.getProperty("spark.app.name"))
+    val sc = new SparkContext(conf)
     //parsing JSON
     val sqlContext = new HiveContext(sc)
 
@@ -49,11 +57,11 @@ object Main {
     //numero event per actor
     QueryUtility.createFile("output\\eventActor.csv", jsonDF.select("actor","type").groupBy("actor").count().collectAsList().toString)
     //numero event divisi per type e actor
-    QueryUtility.createFile("output\\eventActorType.csv", jsonDF.select("actor").select("type").groupBy("actor", "type").count().collectAsList().toString)
+    QueryUtility.createFile("output\\eventActorType.csv", jsonDF.select("actor", "type").groupBy("actor", "type").count().collectAsList().toString)
     //numero event divisi per type actor e repo
-    QueryUtility.createFile("output\\eventActorTypeRepo.csv", jsonDF.select("actor").select("type").select("repo").groupBy("actor", "type", "repo").count().collectAsList().toString)
+    QueryUtility.createFile("output\\eventActorTypeRepo.csv", jsonDF.select("actor", "type", "repo").groupBy("actor", "type", "repo").count().collectAsList().toString)
     //numero event divisi per type actor repo e ora
-    QueryUtility.createFile("output\\eventActorTypeRepoOra.csv", jsonDF.select("actor").select("type").select("repo").select("created_at").groupBy("actor", "type", "repo", "created_at").count().collectAsList().toString)
+    QueryUtility.createFile("output\\eventActorTypeRepoOra.csv", jsonDF.select("actor", "type", "repo", "created_at").groupBy("actor", "type", "repo", "created_at").count().collectAsList().toString)
     //contare numero commit
     QueryUtility.createFile("output\\commitsCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).groupBy("commits").count().collectAsList().toString)
     //contare numero commit per actor
@@ -66,6 +74,4 @@ object Main {
     file.close()
 
   }
-
-
 }
