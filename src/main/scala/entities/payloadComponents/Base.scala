@@ -2,7 +2,7 @@ package entities.payloadComponents
 
 case class Base(label:String = null,
                 ref:String = null,
-                repo:Repo = null,
+                repo:Forkee = null,
                 sha:String = null,
                 user: User = null
                ) extends Serializable
