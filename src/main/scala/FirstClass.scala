@@ -33,7 +33,7 @@ object Main {
 
     val file = Source.fromFile("file.json")
 
-    val jsonDF: Dataset[JsonToParse] = Utility.fromFilePathJSONToRDD("file.json", sqlContext)
+    val jsonDF: Dataset[JsonToParse] = Utility.fromFilePathJSONToDataframe("file.json", sqlContext)
 
     import sqlContext.implicits._
     val rdd = jsonDF.as[JsonToParse].rdd
