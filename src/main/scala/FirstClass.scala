@@ -48,33 +48,33 @@ object Main {
 
     /* QUERIES */
     //salvare singoli actor
-//    QueryUtility.createFile("output\\actor.csv", jsonDF.groupBy("actor").toString)
-//    //salvare singoli author
-//    QueryUtility.createFile("output\\author.csv", jsonDF.withColumn("author", explode($"payload.commits.author")).groupBy("payload.commits.author").toString)
-//    //salvare singoli repo
-//    QueryUtility.createFile("output\\repo.csv", jsonDF.groupBy("repo").toString)
-//    //trovare i vari tipi di evento
-//    QueryUtility.createFile("output\\eventType.csv", jsonDF.groupBy("type").toString)
-//    //contare author
-//    QueryUtility.createFile("output\\authorCount.csv", jsonDF.withColumn("author", explode($"payload.commits.author")).groupBy("payload.commits.author").count().collectAsList().toString)
-//    //contare repo
-//    QueryUtility.createFile("output\\repoCount.csv", jsonDF.groupBy("repo").count().collectAsList().toString)
-//    //numero event per actor
-//    QueryUtility.createFile("output\\eventActor.csv", jsonDF.select("actor","type").groupBy("actor").count().collectAsList().toString)
-//    //numero event divisi per type e actor
-//    QueryUtility.createFile("output\\eventActorType.csv", jsonDF.select("actor", "type").groupBy("actor", "type").count().collectAsList().toString)
-//    //numero event divisi per type actor e repo
-//    QueryUtility.createFile("output\\eventActorTypeRepo.csv", jsonDF.select("actor", "type", "repo").groupBy("actor", "type", "repo").count().collectAsList().toString)
-//    //numero event divisi per type actor repo e ora
-//    QueryUtility.createFile("output\\eventActorTypeRepoOra.csv", jsonDF.select("actor", "type", "repo", "created_at").groupBy("actor", "type", "repo", "created_at").count().collectAsList().toString)
-//    //contare numero commit
-//    QueryUtility.createFile("output\\commitsCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).groupBy("commits").count().collectAsList().toString)
-//    //contare numero commit per actor
-//    QueryUtility.createFile("output\\commitsActorCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).select("actor","commits").groupBy("actor").count().collectAsList().toString)
-//    //numero commit per actor e type
-//    QueryUtility.createFile("output\\commitsActorTypeCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).select("actor", "commits", "type").groupBy("actor", "type").count().collectAsList().toString)
-//    //numero commit per actor type e ora
-//    QueryUtility.createFile("output\\commitsActorTypeOraCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).select("actor", "commits", "created_at", "type").groupBy("actor", "type", "created_at").count().collectAsList().toString)
+    QueryUtility.createFile("output\\actor.csv", jsonDF.groupBy("actor").toString)
+    //salvare singoli author
+    QueryUtility.createFile("output\\author.csv", jsonDF.withColumn("author", explode($"payload.commits.author")).groupBy("payload.commits.author").toString)
+    //salvare singoli repo
+    QueryUtility.createFile("output\\repo.csv", jsonDF.groupBy("repo").toString)
+    //trovare i vari tipi di evento
+    QueryUtility.createFile("output\\eventType.csv", jsonDF.groupBy("type").toString)
+    //contare author
+    QueryUtility.createFile("output\\authorCount.csv", jsonDF.withColumn("author", explode($"payload.commits.author")).groupBy("payload.commits.author").count().collectAsList().toString)
+    //contare repo
+    QueryUtility.createFile("output\\repoCount.csv", jsonDF.groupBy("repo").count().collectAsList().toString)
+    //numero event per actor
+    QueryUtility.createFile("output\\eventActor.csv", jsonDF.select("actor","type").groupBy("actor").count().collectAsList().toString)
+    //numero event divisi per type e actor
+    QueryUtility.createFile("output\\eventActorType.csv", jsonDF.select("actor", "type").groupBy("actor", "type").count().collectAsList().toString)
+    //numero event divisi per type actor e repo
+    QueryUtility.createFile("output\\eventActorTypeRepo.csv", jsonDF.select("actor", "type", "repo").groupBy("actor", "type", "repo").count().collectAsList().toString)
+    //numero event divisi per type actor repo e ora
+    QueryUtility.createFile("output\\eventActorTypeRepoOra.csv", jsonDF.select("actor", "type", "repo", "created_at").groupBy("actor", "type", "repo", "created_at").count().collectAsList().toString)
+    //contare numero commit
+    QueryUtility.createFile("output\\commitsCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).groupBy("commits").count().collectAsList().toString)
+    //contare numero commit per actor
+    QueryUtility.createFile("output\\commitsActorCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).select("actor","commits").groupBy("actor").count().collectAsList().toString)
+    //numero commit per actor e type
+    QueryUtility.createFile("output\\commitsActorTypeCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).select("actor", "commits", "type").groupBy("actor", "type").count().collectAsList().toString)
+    //numero commit per actor type e ora
+    QueryUtility.createFile("output\\commitsActorTypeOraCount.csv", jsonDF.withColumn("commits", explode($"payload.commits")).select("actor", "commits", "created_at", "type").groupBy("actor", "type", "created_at").count().collectAsList().toString)
 
     file.close()
 
